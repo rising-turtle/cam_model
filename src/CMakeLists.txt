@@ -13,5 +13,5 @@ add_library(cam_model ${srcs})
 target_link_libraries(cam_model ${catkin_LIBRARIES} ${OpenCV_LIBS})
 
 
-add_library(sr4k_io SR_reader.cpp SR_reader_cv.cpp)
+# add_library(sr4k_io SR_reader.cpp SR_reader_cv.cpp)
 add_library(rs2h_io rs_r200_wrapper.cpp)
