@@ -37,6 +37,7 @@ class CamModel
     void setDepthScale(double s){m_z_scale = s;}
     void setRows(int r){m_rows = r;}
     void setCols(int c){m_cols = c;}
+    void print(); 
 
     void _toMat(cv::Mat& mat)
     {

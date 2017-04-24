@@ -126,3 +126,10 @@ void CamModel::convertUVZ2XYZ(float u, float v, double z, double &ox, double& oy
   oy = y_u*oz; 
 }
 
+
+void CamModel::print()
+{
+  cout <<" fx: "<< fx<<" fy: "<<fy<<" cx: "<<cx<<" cy: "<<cy<<endl;
+  cout <<" width: "<<width<<" height: "<<height<<" z_scale: "<<m_z_scale<<" z_offset: "<<z_offset <<endl;
+  cout <<" k1: "<<k1<<" k2: "<<k2<<" p1: "<<p1<<" p2: "<<p2<<" k3: "<<k3<<endl; 
+}
