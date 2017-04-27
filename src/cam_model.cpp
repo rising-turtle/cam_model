@@ -26,6 +26,23 @@ void CamModel::updategCamModel(CamModel& new_cam)
   return ;
 }
 
+void CamModel::undistortImage(const cv::Mat& raw, cv::Mat& rectified)
+{
+  if(mbDistRectify == false) // has not been initialized
+  {
+    double d[5]; d[0] = k1; d[1] = k2; d[2] = p1; d[3] = p2; d[4] = k3; 
+    cv::Mat cvK = (cv::Mat_<float>(3,3) << fx, 0 , cx, 0, fy, cy, 0, 0, 1); 
+    cv::Mat dist_coef = (cv::Mat_<float>(1,5) << d[0], d[1], d[2], d[3], d[4]); 
+    cv::initUndistortRectifyMap(cvK, dist_coef, cv::Mat_<double>::eye(3,3), cvK, cv::Size(width, height), CV_16SC2, m_undist_map1, m_undist_map2); 
+    mbDistRectify = true; 
+    mbDistortion = fabs(k1) > 0.0000001; 
+  }
+  if(mbDistortion)
+    cv::remap(raw, rectified, m_undist_map1, m_undist_map2, CV_INTER_LINEAR); 
+  else
+    rectified = raw.clone(); 
+}
+
 void CamModel::distortCorrection(double x_d, double y_d, double& x_u, double &y_u)
 {
     if(k1 == 0) // no distortion correction needed 

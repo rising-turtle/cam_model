@@ -20,16 +20,17 @@ class CamModel
     {
       _toCam(mat);
       z_offset = 0;
+      mbDistRectify = false; 
     }
-    CamModel(): z_offset(0), m_z_scale(1.){}
-    CamModel(double fx1, double fy1, double cx1, double cy1, double k11=0, double k22=0, double p11=0, double p22=0, double k33=0, double k44=0, double k55=0, double k66=0): 
+    CamModel(): z_offset(0), m_z_scale(1.), mbDistRectify(false){}
+    CamModel(double fx1, double fy1, double cx1, double cy1, double k11=0, double k22=0, double p11=0, double p22=0, double k33=0, double k44=0, double k55=0, double k66=0): mbDistRectify(false),
     fx(fx1), fy(fy1), cx(cx1), cy(cy1), k1(k11), k2(k22), p1(p11), p2(p22), k3(k33), k4(k44), k5(k55), k6(k66), z_offset(0), m_z_scale(1.), m_rows(144), m_cols(176), width(m_cols), height(m_rows)
   {}
     virtual ~CamModel(){}
   public:
     // convert (u, v, Z) to (X, Y, Z) with the current parameters 
     void convertUVZ2XYZ(float u, float v, double z, double &ox, double &oy, double& oz); 
-    void distortCorrection(double x_d, double y_d, double& x_u, double &y_u);
+    void distortCorrection(double x_d, double y_d, double& x_u, double &y_u); 
 
     // convert (X,Y,Z) to (u,v,1)
     void convertXYZ2UV(float x, float y, float z, float &u, float &v); 
@@ -38,6 +39,12 @@ class CamModel
     void setRows(int r){m_rows = r;}
     void setCols(int c){m_cols = c;}
     void print(); 
+
+    void undistortImage(const cv::Mat& raw, cv::Mat& rectified); 
+    cv::Mat m_undist_map1; 
+    cv::Mat m_undist_map2; 
+    bool mbDistRectify; 
+    bool mbDistortion; 
 
     void _toMat(cv::Mat& mat)
     {
