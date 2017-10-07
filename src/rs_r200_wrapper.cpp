@@ -10,6 +10,17 @@ using namespace cv;
 CRSR200Wrapper::CRSR200Wrapper(){}
 CRSR200Wrapper::~CRSR200Wrapper(){}
 
+bool CRSR200Wrapper::readImgCV(std::string file, cv::Mat& img)
+{
+  img = imread(file.c_str(), -1); 
+  return (img.data != NULL); 
+}
+
+bool CRSR200Wrapper::readOneFrameCV(std::string f_rgb, std::string f_dpt, cv::Mat& rgb, cv::Mat& dpt)
+{
+  return (readImgCV(f_rgb, rgb) && readImgCV(f_dpt, dpt)); 
+}
+
 bool CRSR200Wrapper::readOneFrameCV(string f_dir, int id, cv::Mat& rgb, cv::Mat& dpt)
 {
   stringstream ss_rgb, ss_dpt; 

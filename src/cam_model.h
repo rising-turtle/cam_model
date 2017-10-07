@@ -23,7 +23,7 @@ class CamModel
     }
     CamModel(): z_offset(0), m_z_scale(1.){}
     CamModel(double fx1, double fy1, double cx1, double cy1, double k11=0, double k22=0, double p11=0, double p22=0, double k33=0, double k44=0, double k55=0, double k66=0): 
-    fx(fx1), fy(fy1), cx(cx1), cy(cy1), k1(k11), k2(k22), p1(p11), p2(p22), k3(k33), k4(k44), k5(k55), k6(k66), z_offset(0), m_z_scale(1.), m_rows(144), m_cols(176)
+    fx(fx1), fy(fy1), cx(cx1), cy(cy1), k1(k11), k2(k22), p1(p11), p2(p22), k3(k33), k4(k44), k5(k55), k6(k66), z_offset(0), m_z_scale(1.), m_rows(144), m_cols(176), width(m_cols), height(m_rows)
   {}
     virtual ~CamModel(){}
   public:
@@ -56,6 +56,8 @@ class CamModel
     // image size 
     int m_rows; 
     int m_cols; 
+    int width; 
+    int height; 
 
     // intrinsic matrix 
     double fx; 
