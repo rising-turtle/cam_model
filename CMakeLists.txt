@@ -1,13 +1,17 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(cam_model)
 
+if (POLICY CMP0048)
+  cmake_policy(SET CMP0048 OLD)
+endif (POLICY CMP0048)
+
+set(CMAKE_CXX_FLAGS "-ggdb -g -O3 -w -std=c++11 -fpermissive -Wno-dev")
+
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
     roscpp)
-
-set(CMAKE_CXX_FLAGS "-ggdb -g -O3 -w -std=c++11 -fpermissive -Wno-dev")
 
 ###################################
 ## catkin specific configuration ##
